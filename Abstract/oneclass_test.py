@@ -36,6 +36,7 @@ from graphlearn.estimator import Wrapper
 import numpy
 from graphlearn.utils import evaltools
 from eden.util import random_bipartition_iter
+import random
 
 def oneclasstest_fraction(fraction=0.1,repeats=2):
     # choosing some graphs, 
@@ -46,7 +47,7 @@ def oneclasstest_fraction(fraction=0.1,repeats=2):
         badscores=[]
         goodscores=[]
         graphs = get_sequences_with_names(size=923)
-        graphs,not_used = random_bipartition_iter(graphs,fraction)
+        graphs,not_used = random_bipartition_iter(graphs,fraction,random_state=random.random())
 
         estimator=Wrapper( nu=.27, cv=3, n_jobs=-1)
         sampler=rna.AbstractSampler(radius_list=[0,1],
