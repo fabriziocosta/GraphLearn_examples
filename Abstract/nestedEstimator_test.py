@@ -10,6 +10,8 @@ configure_logging(logging.getLogger(),verbosity=1)
 '''
 GET READY 
 '''
+SHAPEVERSION=2
+
 from eden.converter.fasta import fasta_to_sequence
 import itertools
 def rfam_uri(family_id):
@@ -83,7 +85,7 @@ def wrap_fraction(fraction=0.1,repeats=2):
 
         #test
         for graphman in graphmanagers:
-            struct = evaltools.dotbracket_to_shape(graphman.structure,shapesversion=3)
+            struct = evaltools.dotbracket_to_shape(graphman.structure,shapesversion=SHAPEVERSION)
             score =  sampler.estimatorobject.score(graphman)
             if struct=="[[][][]]":
                 goodscores.append(score)
