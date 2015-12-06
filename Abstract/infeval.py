@@ -127,10 +127,10 @@ def eval(repeats,size):
     std = numpy.std(a, axis=0)
     
     print 'size:%d mean:%f std:%f' % (size,mean,std)
-    return [mean,std]
+    return mean,std
     
 
-
+'''
 import numpy as np
 import matplotlib.pyplot as plt
 def make_bar_plot(labels=('G1', 'G2', 'G3', 'G4', 'G5'),means=(20, 35, 30, 35, 27),stds=(2, 3, 4, 1, 2)):
@@ -143,14 +143,14 @@ def make_bar_plot(labels=('G1', 'G2', 'G3', 'G4', 'G5'),means=(20, 35, 30, 35, 2
     plt.xticks(ind + width/2, labels )
     plt.yticks(np.arange(0, 100, 10))
     plt.show()
-    
+'''
 
 
 
 means=[]
 stds=[]
 for size in sizes:
-    m,s=eval(repeats,size)
+    m,s = eval(repeats,size)
     means.append(m)
     stds.append(s)
     
