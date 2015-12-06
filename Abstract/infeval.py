@@ -10,7 +10,9 @@ from eden.converter.fasta import fasta_to_sequence
 import itertools
 from eden.util import random_bipartition_iter
 import random
-
+import numpy
+ 
+ 
 def rfam_uri(family_id):
     return 'http://rfam.xfam.org/family/%s/alignment?acc=%s&format=fastau&download=0'%(family_id,family_id)
 def rfam_uri(family_id):
@@ -110,7 +112,7 @@ def fit_sample(graphs, random_state=random.random()):
     
     
     
-    
+
     
 
 def eval(repeats,size):
