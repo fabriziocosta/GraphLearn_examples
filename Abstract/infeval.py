@@ -124,7 +124,7 @@ def eval(repeats,size):
         cmpath='../%s.cm' % RFAM
         result+=rna.infernal_checker(z,cmfile=cmpath, cmsearchbinarypath='../toolsdata/cmsearch')
         
-    a = numpy.array(res)
+    a = numpy.array(result)
     mean = numpy.mean(a, axis=0)
     std = numpy.std(a, axis=0)
     
