@@ -1,18 +1,11 @@
 
-# coding: utf-8
-
-# In[1]:
-
-get_ipython().magic(u'load_ext autoreload')
-get_ipython().magic(u'autoreload 2')
-get_ipython().magic(u'matplotlib inline')
 import eden
 import matplotlib.pyplot as plt
 from eden.util import configure_logging
 import logging
 
 
-# In[2]:
+# In[ ]:
 
 from itertools import tee, chain, islice
 import numpy as np
@@ -84,7 +77,7 @@ def get_graphs_permuted(fname='RF00005.fa',size=99999):
 #get_graphs(dataset_fname, size=100)
 
 
-# In[3]:
+# In[ ]:
 
 import random
 import graphlearn.abstract_graphs.RNA as rna
@@ -149,7 +142,7 @@ def fit_sample(graphs, random_state=random.random()):
     return result
 
 
-# In[4]:
+# In[ ]:
 
 def fit_and_evaluate(pos_original, neg_original,
                      pos_sampled, neg_sampled,
@@ -197,7 +190,7 @@ def fit_and_evaluate(pos_original, neg_original,
     return predictive_performances
 
 
-# In[5]:
+# In[ ]:
 
 def evaluate(pos_fname, neg_fname=None, size=None, percentages=None, n_repetitions=None, train_test_split=None):
     # initializing 
@@ -262,7 +255,7 @@ def evaluate(pos_fname, neg_fname=None, size=None, percentages=None, n_repetitio
     return original_repetitions, original_sample_repetitions, sample_repetitions
 
 
-# In[6]:
+# In[ ]:
 
 def plot(dataset, percentages, original_sample_repetitions, original_repetitions, sample_repetitions):
     gc={'color':'g'}
@@ -291,7 +284,7 @@ def plot(dataset, percentages, original_sample_repetitions, original_repetitions
     plt.savefig('%s_plot_predictive_performance_of_samples.pdf' % dataset)
 
 
-# In[7]:
+# In[ ]:
 
 def save_results(result_fname,percentages, original_repetitions,original_sample_repetitions,sample_repetitions):
     with open(result_fname,'w') as f:
@@ -341,32 +334,51 @@ def load_results(result_fname):
 
 # #Experimental pipeline
 
-# In[8]:
+# In[ ]:
 
 #plot("RF00162 vs RF01725", percentages_l, original_sample_repetitions_l, original_repetitions_l, sample_repetitions_l)
 
 
-# In[9]:
-
-get_ipython().run_cell_magic(u'time', u'', u"#special case: bursi\npos_dataset_fname = 'RF00005.fa'\nneg_dataset_fname = None # none will permute the first dataset\ndataset='%s_vs_%s' % (pos_dataset_fname, neg_dataset_fname)\n#logging\nlogger = logging.getLogger()\nif True:\n    logger_fname = '%s_predictive_performance_of_samples.log'%dataset\nelse:\n    logger_fname = None\nconfigure_logging(logger,verbosity=1, filename=logger_fname)\n\n#main \nstart=time()\nprint( 'Working with dataset: %s' % dataset )\n\nlogger.info( 'Working with dataset: %s' % dataset )\n\npercentages=[.08,.2,.4,.6,.8,.95]\npercentages=[.07,0.1,0.15,0.2]\n\n# set size to 900 in production\noriginal_repetitions,\\\noriginal_sample_repetitions,\\\nsample_repetitions = evaluate(pos_dataset_fname,\n                              neg_dataset_fname,\n                              size=100,\n                              percentages=percentages,\n                              n_repetitions=3,\n                              train_test_split=0.7)\n#save and display results\nresult_fname='%s_predictive_performance_of_samples.data'%dataset\nsave_results(result_fname,percentages, original_repetitions,original_sample_repetitions,sample_repetitions)    \n\npercentages_l, original_repetitions_l,original_sample_repetitions_l,sample_repetitions_l = load_results('asd.data')\nplot(dataset, percentages_l, original_sample_repetitions_l, original_repetitions_l, sample_repetitions_l)\n\nprint('Time elapsed: %s'%(datetime.timedelta(seconds=(time() - start))))")
-
-
-# In[10]:
-'''
-#setup
-dataset_names = get_ipython().getoutput(u'cat NCI60/names')
-random.shuffle(dataset_names)
-# In[11]:
-get_ipython().run_cell_magic(u'time', u'', u'for dataset in dataset_names:\n    #logging\n    logger = logging.getLogger()\n    if True:\n        logger_fname = \'%s_predictive_performance_of_samples.log\'%dataset\n    else:\n        logger_fname = None\n    configure_logging(logger,verbosity=1, filename=logger_fname)\n    \n    #main \n    start=time()\n    print( \'Working with dataset: %s\' % dataset )\n\n    logger.info( \'Working with dataset: %s\' % dataset )\n    pos_dataset_fname = "RF00005.fa"\n    neg_dataset_fname = \'mixed.fa\n\n    percentages=[.05,.2,.4,.6,.8,.95]\n    percentages=[.05,.2]\n\n    original_repetitions,\\\n    original_sample_repetitions,\\\n    sample_repetitions = evaluate(pos_dataset_fname,\n                                  #neg_dataset_fname,\n                                  size=400,\n                                  percentages=percentages,\n                                  n_repetitions=3,\n                                  train_test_split=0.7)\n    #save and display results\n    result_fname=\'%s_predictive_performance_of_samples.data\'%dataset\n    save_results(result_fname,percentages, original_repetitions,original_sample_repetitions,sample_repetitions)    \n    percentages_l, original_repetitions_l,original_sample_repetitions_l,sample_repetitions_l = load_results(result_fname)\n    plot(dataset, percentages_l, original_sample_repetitions_l, original_repetitions_l, sample_repetitions_l)\n    \n    print(\'Time elapsed: %s\'%(datetime.timedelta(seconds=(time() - start))))')
 # In[ ]:
 
-#display
-for dataset in dataset_names:
-    result_fname='%s_predictive_performance_of_samples.data'%dataset
-    percentages_l, original_repetitions_l,original_sample_repetitions_l,sample_repetitions_l = load_results(result_fname)
-    plot(dataset, percentages_l, original_sample_repetitions_l, original_repetitions_l, sample_repetitions_l)
-# In[14]:
-get_graphs_permuted('RF00005.fa',10)
+def do():
+    #special case: bursi
+    pos_dataset_fname = 'RF00005.fa'
+    neg_dataset_fname = None # none will permute the first dataset
+    dataset='%s_vs_%s' % (pos_dataset_fname, neg_dataset_fname)
+    #logging
+    logger = logging.getLogger()
+    if True:
+        logger_fname = '%s_predictive_performance_of_samples.log'%dataset
+    else:
+        logger_fname = None
+    configure_logging(logger,verbosity=1, filename=logger_fname)
 
-'''
+    #main 
+    start=time()
+    print( 'Working with dataset: %s' % dataset )
+
+    logger.info( 'Working with dataset: %s' % dataset )
+
+    percentages=[.08,.2,.4,.6,.8,.95]
+    percentages=[.07,0.1,0.15,0.2]
+
+    # set size to 900 in production
+    original_repetitions,    original_sample_repetitions,    sample_repetitions = evaluate(pos_dataset_fname,
+                                  neg_dataset_fname,
+                                  size=100,
+                                  percentages=percentages,
+                                  n_repetitions=3,
+                                  train_test_split=0.7)
+    #save and display results
+    result_fname='%s_predictive_performance_of_samples.data'%dataset
+    save_results(result_fname,percentages, original_repetitions,original_sample_repetitions,sample_repetitions)    
+
+    percentages_l, original_repetitions_l,original_sample_repetitions_l,sample_repetitions_l = load_results('asd.data')
+    plot(dataset, percentages_l, original_sample_repetitions_l, original_repetitions_l, sample_repetitions_l)
+
+    print('Time elapsed: %s'%(datetime.timedelta(seconds=(time() - start))))
+
+do()
+
 
