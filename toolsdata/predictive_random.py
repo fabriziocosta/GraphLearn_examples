@@ -26,6 +26,8 @@ GET RNA DATA
 from eden.converter.fasta import fasta_to_sequence
 import itertools
 
+logger = logging.getLogger()
+
 def rfam_uri(family_id):
     return 'http://rfam.xfam.org/family/%s/alignment?acc=%s&format=fastau&download=0'%(family_id,family_id)
 def rfam_uri(family_id):
@@ -42,13 +44,6 @@ def get_graphs(fname,size):
     graphs=[g for g in get_sequences_with_names(fname)]
     random.shuffle(graphs)
     return graphs[:size]
-
-
-
-
-
-
-
 
 
 
@@ -347,7 +342,7 @@ def do():
     neg_dataset_fname = None # none will permute the first dataset
     dataset='%s_vs_%s' % (pos_dataset_fname, neg_dataset_fname)
     #logging
-    logger = logging.getLogger()
+
     if True:
         logger_fname = '%s_predictive_performance_of_samples.log'%dataset
     else:
