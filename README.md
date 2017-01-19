@@ -9,5 +9,7 @@
 
 * [MultiGoal -- optimize towards multiple goals](https://github.com/smautner/GraphLearn_examples/blob/master/notebooks/SamplerCombiner.ipynb)
 
+* [Cascading Abstraction](https://github.com/smautner/GraphLearn_examples/blob/master/notebooks/cascade.ipynb)
+
 
 
