@@ -19,8 +19,11 @@ from graphlearn.learnedlayer import transform
 graphs = get_graphs(size=200)
 import graphlearn.minor.decompose as decompose
 
+from graphlearn.minor.molecule.transform_cycle import GraphTransformerCircles as GTC
+
 sampler=graphlearn_sampler(
             decomposer=decompose.MinorDecomposer(),
+            #graphtransformer=GTC(),
             graphtransformer=transform.GraphMinorTransformer(group_score_threshold=0.4,num_classes=1,debug=False),
             n_samples=5,
      
