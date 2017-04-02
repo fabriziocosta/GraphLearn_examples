@@ -4,6 +4,11 @@ from graphlearn.minor.rna import forgitransform as forgitransform
 from graphlearn.learnedlayer import cascade
 
 
+# logger kram
+from eden.util import configure_logging
+import logging
+configure_logging(logging.getLogger(), verbosity=2) 
+
 #from eden.converter.fasta import fasta_to_sequence
 from eden_rna.io.fasta import load 
 import itertools
@@ -19,21 +24,21 @@ def get_sequences(size=9999,withoutnames=False):
         return [ b for (a,b) in sequences ]
     return sequences
 
-graphs = get_sequences(size=100)
+graphs = get_sequences(size=30)
 
 
 sampler=infernal.AbstractSampler(
-                                #radius_list=[0,1],
-                                #thickness_list=[2],
-                                #min_cip_count=1,
-                                #min_interface_count=2,
-                                #graphtransformer= learntrans.GraphMinorTransformer(),
-                                graphtransformer= cascade.RNACascade(num_classes=1,debug=False, debug_rna=True),
-                                decomposer=RnaDecomposer(output_sequence=True,pre_vectorizer_rm_f=True,calc_contracted_edge_nodes=False),
-                                #estimator=estimator
-                                #feasibility_checker=feasibility
-                                include_seed=False
-                               )
+    #radius_list=[0,1],
+    #thickness_list=[2],
+    #min_cip_count=1,
+    #min_interface_count=2,
+    #graphtransformer= learntrans.GraphMinorTransformer(),
+    graphtransformer= cascade.RNACascade(num_classes=1,debug=False, debug_rna=True),
+    decomposer=RnaDecomposer(output_sequence=True,pre_vectorizer_rm_f=True,calc_contracted_edge_nodes=True),
+    #estimator=estimator
+    #feasibility_checker=feasibility
+    include_seed=False
+   )
 
 sampler.fit(graphs)
 graphs = get_sequences(size=5,withoutnames=True)
