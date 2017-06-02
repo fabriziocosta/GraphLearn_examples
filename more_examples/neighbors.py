@@ -7,8 +7,10 @@
 
 from eden.io.gspan import  gspan_to_eden
 from itertools import  islice
+
+from eden.graph import _edge_to_vertex_transform as etvt
 def get_graphs(dataset_fname= '../toolsdata/bursi.pos.gspan', size=100):
-        return  list(islice(gspan_to_eden(dataset_fname),size))
+        return  map (etvt, list(islice(gspan_to_eden(dataset_fname),size)))
 
 
 
